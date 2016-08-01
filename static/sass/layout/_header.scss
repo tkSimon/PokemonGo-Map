@@ -42,10 +42,6 @@
 				color: _palette(accent2, fg-bold);
 			}
 
-			&[id="scan-here"] {
-				float: right;
-			}
-
 			&[href="#nav"] {
 				@include icon('\f0b0');
 				-webkit-tap-highlight-color: rgba(0,0,0,0);
