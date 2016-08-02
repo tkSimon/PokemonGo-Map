@@ -922,6 +922,11 @@ function initMap () { // eslint-disable-line no-unused-vars
 
   addMyLocationButton()
   initSidebar()
+
+  $('#scan-here').on('click', function () {
+    var loc = map.getCenter()
+    changeLocation(loc.lat(), loc.lng())
+  })
 }
 
 function updateSearchMarker (style) {
