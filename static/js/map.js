@@ -699,7 +699,8 @@ function clearSelection() {
 function addListeners(marker) {
   marker.addListener('click', function() {
     if (marker.persist) {
-      marker.persist = false
+      marker.persist = false;
+      marker.infoWindow.close();
     } else {
       marker.infoWindow.open(map, marker);
       clearSelection();
