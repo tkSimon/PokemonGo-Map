@@ -926,6 +926,11 @@ function initMap () { // eslint-disable-line no-unused-vars
   $('#scan-here').on('click', function () {
     var loc = map.getCenter()
     changeLocation(loc.lat(), loc.lng())
+
+    if (!$('#search-switch').checked) {
+      $('#search-switch').prop('checked', true)
+      searchControl('on')
+    }
   })
 }
 
@@ -975,10 +980,12 @@ function createSearchMarker () {
 var searchControlURI = 'search_control'
 function searchControl (action) {
   $.post(searchControlURI + '?action=' + encodeURIComponent(action))
+  $('#scan-here').toggleClass('disabled', action === 'off')
 }
 function updateSearchStatus () {
   $.getJSON(searchControlURI).then(function (data) {
     $('#search-switch').prop('checked', data.status)
+    $('#scan-here').toggleClass('disabled', !data.status)
   })
 }
 
