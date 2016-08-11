@@ -3,6 +3,7 @@
 
 import os
 import sys
+import signal
 import shutil
 import logging
 import time
@@ -22,6 +23,10 @@ from pogom.utils import get_args, insert_mock_data, get_encryption_lib_path
 
 from pogom.search import search_overseer_thread, fake_search_loop
 from pogom.models import init_database, create_tables, drop_tables
+
+
+def shutdown_handler(sig, flag):
+    sys.exit(0)
 
 # Currently supported pgoapi
 pgoapi_version = "1.1.7"
@@ -144,6 +149,10 @@ if __name__ == '__main__':
     # Setup the location tracking queue and push the first location on
     new_location_queue = Queue()
     new_location_queue.put(position)
+
+    # Register shutdown handler
+    signal.signal(signal.SIGTERM, shutdown_handler)
+    signal.signal(signal.SIGINT, shutdown_handler)
 
     if not args.only_server:
         # Gather the pokemons!
