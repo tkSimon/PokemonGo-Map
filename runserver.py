@@ -26,6 +26,8 @@ from pogom.models import init_database, create_tables, drop_tables
 
 
 def shutdown_handler(sig, flag):
+    if(app)
+        app.shutdown_server()
     sys.exit(0)
 
 # Currently supported pgoapi
